@@ -30,8 +30,10 @@ if [ "$ID" = "ubuntu" ] || [ "$ID" = "debian" ]; then
     fi
     apt-get install -y ninja-build ragel libhwloc-dev libnuma-dev libpciaccess-dev libcrypto++-dev libboost-all-dev libxml2-dev xfslibs-dev libgnutls28-dev liblz4-dev libsctp-dev gcc make libprotobuf-dev protobuf-compiler python3 libunwind8-dev systemtap-sdt-dev libtool cmake libyaml-cpp-dev
     if [ "$ID" = "ubuntu" ]; then
-        apt-get install -y g++-5
-        echo "g++-5 is installed for Seastar. To build Seastar with g++-5, specify '--compiler=g++-5' on configure.py"
+        add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        apt-get -y update
+        apt-get install -y gcc-7 g++-7 
+        update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7 
     else # debian
         apt-get install -y g++
     fi
